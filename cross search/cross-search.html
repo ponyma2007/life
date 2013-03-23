@@ -7,7 +7,6 @@
 
 var g_group_array = [
 "", 
-"5 6 7 8 9 10 11 12 13 14 15", 
 "10 11 12 13 14 15",
 "5 6 7 8 9"
 ];
@@ -79,7 +78,7 @@ function choose_group(v){
 function show_group(){
 	document.write("<table>");
 	document.write("<tr>");
-	document.write("<td>选择组：</td>");
+	document.write("<td>Choose a group：</td>");
 	for(var i = 0; i < g_group_array.length; i++)
 	{
 		var str = "<td><input type=radio name=radio id=radio value=radio";
@@ -102,8 +101,8 @@ function show_pt(){
 	document.write("<table>");
 	document.write("<tr>");
 	document.write("<td></td>");
-	document.write("<td>站名</td>");
-	document.write("<td>搜索链接</td>");
+	document.write("<td>Name</td>");
+	document.write("<td>Url</td>");
 	document.write("</tr>");
 	for(var i = 0;  i < g_pt_array.length; i++)
 	{
@@ -121,12 +120,12 @@ function show_pt(){
 </head>
 
 <body>
-<p>搜索关键字：<input name="key" id="key" type=text size=80 onkeydown="pass_key()" /></p>
+<p>Keyword：<input name="key" id="key" type=text size=80 onkeydown="pass_key()" /></p>
 <script>
 show_group();
 show_pt();
 </script>
-<p><input type=button onclick="javascript:search()" value="搜索"></p>
+<p><input type=button onclick="javascript:search()" value="Search"></p>
 <p><table><tr><td width=650></td><td><font size=1px>Powered by <a href="mailto:ponyma2007@hotmail.com">Pony</a></font></td></tr></table></p>
 </body>
 </html>
