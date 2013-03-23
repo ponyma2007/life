@@ -1,0 +1,132 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>cross search</title>
+<script>
+
+var g_group_array = [
+"", 
+"5 6 7 8 9 10 11 12 13 14 15", 
+"10 11 12 13 14 15",
+"5 6 7 8 9"
+];
+
+var g_pt_array = [
+["cmct", "http://pt.hdcmct.com/torrents.php?search=%KEYWORDS%"],
+["cnscg", "http://www.cnscg.org/torrents.php?incldead=1&spstate=0&inclbookmarked=0&search=%KEYWORDS%&search_area=0&search_mode=0"],
+["p2p", "http://pig2pig.com/torrents.php?incldead=1&spstate=0&inclbookmarked=0&search=%KEYWORDS%&search_area=0&search_mode=0"],
+["hdbits", "http://hdbits.cn/torrents.php?search=%KEYWORDS%"],
+["khq", "http://open.cd/torrents.php?incldead=1&spstate=0&inclbookmarked=0&search=%KEYWORDS%&search_area=0&search_mode=0"],
+["pt", "http://pt.sjtu.edu.cn/torrents.php?incldead=0&spstate=0&inclbookmarked=0&picktype=0&search=%KEYWORDS%&search_area=0&search_mode=0"],
+["tccf", "http://et8.org/torrents.php?incldead=1&spstate=0&inclbookmarked=0&search=%KEYWORDS%&search_area=0&search_mode=0"],
+["hdcity", "http://www.hdcity.org/torrents.php?incldead=1&spstate=0&inclbookmarked=0&search=%KEYWORDS%&search_area=0&search_mode=0"],
+["hd001", "http://www.hd001.org/torrents.php?incldead=1&spstate=0&inclbookmarked=0&search=%KEYWORDS%&search_area=0&search_mode=0"],
+["chdtv", "http://www.chinahdtv.org/torrents.php?incldead=1&spstate=0&inclbookmarked=0&search=%KEYWORDS%&search_area=0&search_mode=0"],
+["ccf", "https://ccfbits.org/browse.php?search=%KEYWORDS%&cat=0"],
+["hdr", "http://hdroad.org/browse.php?search=%KEYWORDS%&cat=0&blah=0"],
+["hds", "http://www.hdstar.org/torrents.php?incldead=1&spstate=0&inclbookmarked=0&search=%KEYWORDS%&search_area=0&search_mode=0"],
+["chd", "http://chdbits.org/torrents.php?incldead=1&spstate=0&inclbookmarked=0&search=%KEYWORDS%&search_area=0&search_mode=0"],
+["ttg", "http://ttg.im/browse.php?search_field=%KEYWORDS%&c=M"],
+["hdc", "http://hdchina.org/browse.php?search=%KEYWORDS%&cat=0"],
+];
+
+function search()
+{
+	var key = document.getElementById("key").value;
+	if(!key)
+		return;
+
+	var form = document.getElementById("form");
+	for(var i = 0; i < form.elements.length; i += 3)
+	{
+		var name = form.elements[i + 1].value;
+		var url = form.elements[i + 2].value;
+		if(form.elements[i].checked && name && url)
+		{
+			url = url.replace(/%KEYWORDS%/g, key);
+			window.open(url, name);
+		}
+	}
+}
+
+function pass_key(){
+	var code = event.keyCode;
+	if(code == 13){
+		search();
+	}
+}
+
+function in_array(a, b){
+	for(var i = 0; i < b.length; i++)
+	{
+		if(parseInt(b[i]) == a)
+			return true;
+	}
+	return false;
+}
+
+function choose_group(v){
+	var s = document.getElementById(v).value;
+	var a = s.split(" ");
+	var form = document.getElementById("form");
+	for(var i = 0; i < form.elements.length; i += 3)
+	{
+		form.elements[i].checked = in_array(i / 3, a);
+	}
+}
+
+function show_group(){
+	document.write("<table>");
+	document.write("<tr>");
+	document.write("<td>选择组：</td>");
+	for(var i = 0; i < g_group_array.length; i++)
+	{
+		var str = "<td><input type=radio name=radio id=radio value=radio";
+		str += i;
+		str += " onclick='choose_group(this.value)'><input type=text name=radio";
+		str += i;
+		str += " id=radio";
+		str += i;
+		str += " width=10 value='";
+		str += g_group_array[i];
+		str += "' /></td>";
+		document.write(str);
+	}
+	document.write("</tr>");
+	document.write("</table>");
+}
+
+function show_pt(){
+	document.write("<form name=form id=form>");
+	document.write("<table>");
+	document.write("<tr>");
+	document.write("<td></td>");
+	document.write("<td>站名</td>");
+	document.write("<td>搜索链接</td>");
+	document.write("</tr>");
+	for(var i = 0;  i < g_pt_array.length; i++)
+	{
+		var pt = g_pt_array[i];
+		document.write("<tr>");
+		document.write("<td><input type=checkbox width=10/></td>");
+		document.write("<td><input type=text size=10 value=" + pt[0] +"></td>");
+		document.write("<td><input type=text size=100 value='" + pt[1] + "'/></td>");
+		document.write("</tr>");
+	}
+	document.write("</table>");
+	document.write("</form>");
+}
+</script>
+</head>
+
+<body>
+<p>搜索关键字：<input name="key" id="key" type=text size=80 onkeydown="pass_key()" /></p>
+<script>
+show_group();
+show_pt();
+</script>
+<p><input type=button onclick="javascript:search()" value="搜索"></p>
+<p><table><tr><td width=650></td><td><font size=1px>Powered by <a href="mailto:ponyma2007@hotmail.com">Pony</a></font></td></tr></table></p>
+</body>
+</html>
